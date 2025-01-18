@@ -26,6 +26,10 @@ function App() {
       ...prev,
       [currentQuestion]: option
     }))
+    
+    if (currentQuestion < questions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1)
+    }
   }
 
   const handleNext = () => {
