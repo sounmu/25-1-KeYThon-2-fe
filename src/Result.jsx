@@ -45,7 +45,7 @@ function Result({ result, onReset }) {
     }
 
     try {
-      const response = await fetch('http://52.79.237.145:8000/api/topic', {
+      const response = await fetch('https://test.kusis.kr/api/topic', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
