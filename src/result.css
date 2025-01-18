@@ -1,0 +1,27 @@
+.result-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.result-container h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.result-content {
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  line-height: 1.6;
+}
+
+.result-content p {
+  font-size: 1.1rem;
+  color: #444;
+  white-space: pre-wrap;
+}

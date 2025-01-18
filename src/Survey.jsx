@@ -1,10 +1,13 @@
 import { useState } from 'react'
 import './Survey.css'
+import Result from './result.jsx'
 
 function Survey() {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [answers, setAnswers] = useState({})
   const [isAnimating, setIsAnimating] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [result, setResult] = useState(null)
 
   const questions = [
     "나는 새로운 사람들을 만나는 것을 즐긴다.",
@@ -51,6 +54,35 @@ function Survey() {
     }
   }
 
+  const handleSubmit = async () => {
+    setIsSubmitting(true)
+    try {
+      const response = await fetch('http://localhost:8080/api/survey', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ answers }),
+      })
+      
+      if (!response.ok) {
+        throw new Error('Failed to submit survey')
+      }
+
+      const data = await response.json()
+      setResult(data.result)
+    } catch (error) {
+      console.error('Error submitting survey:', error)
+      alert('설문 제출 중 오류가 발생했습니다. 다시 시도해주세요.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  if (result) {
+    return <Result result={result} />
+  }
+
   return (
     <div className="survey-container">
       <p className="text-h3">One Piece (가명)</p>
@@ -89,13 +121,23 @@ function Survey() {
             >
               Back
             </button>
-            <button 
-              className="nav-button" 
-              onClick={handleNext}
-              disabled={currentQuestion === questions.length - 1}
-            >
-              Next
-            </button>
+            {currentQuestion === questions.length - 1 ? (
+              <button 
+                className="nav-button finish-button" 
+                onClick={handleSubmit}
+                disabled={isSubmitting || !answers[currentQuestion]}
+              >
+                {isSubmitting ? '제출 중...' : 'Finish'}
+              </button>
+            ) : (
+              <button 
+                className="nav-button" 
+                onClick={handleNext}
+                disabled={currentQuestion === questions.length - 1}
+              >
+                Next
+              </button>
+            )}
           </div>
         </>
       ) : (
