@@ -14,9 +14,15 @@ function App() {
       if (parts.length === 2) return parts.pop().split(';').shift()
     }
     
-    const result = getCookie('surveyResult')
-    if (result) {
-      setSavedResult(decodeURIComponent(result))
+    const resultStr = getCookie('surveyResult')
+    if (resultStr) {
+      try {
+        const parsedResult = JSON.parse(decodeURIComponent(resultStr))
+        setSavedResult(parsedResult)
+      } catch (error) {
+        console.error('Failed to parse saved result:', error)
+        document.cookie = 'surveyResult=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+      }
     }
   }, [])
 
@@ -32,7 +38,7 @@ function App() {
       ) : (
         <Survey onComplete={(result) => {
           // Save result to cookie
-          document.cookie = `surveyResult=${encodeURIComponent(result)}; path=/`
+          document.cookie = `surveyResult=${encodeURIComponent(JSON.stringify(result))}; path=/`
           setSavedResult(result)
         }} />
       )}
