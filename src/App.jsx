@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import Survey from './Survey'
-import Result from './result.jsx'
+import Result from './Result.jsx';
 
 function App() {
   const [savedResult, setSavedResult] = useState(null)

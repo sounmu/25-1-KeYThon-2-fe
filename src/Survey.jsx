@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './Survey.css'
-import Result from './result.jsx'
+import Result from './Result.jsx'
 
 function Survey({ onComplete }) {
   const [currentQuestion, setCurrentQuestion] = useState(0)
