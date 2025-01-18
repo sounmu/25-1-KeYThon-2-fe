@@ -6,6 +6,20 @@ function Result({ result, onReset }) {
   const [hasSearched, setHasSearched] = useState(false)
   const [searchResults, setSearchResults] = useState(null)
 
+  const cleanHtmlString = (str) => {
+    if (!str) return '';
+    // HTML 엔티티 디코딩
+    const decoded = str.replace(/&quot;/g, '"')
+                      .replace(/&amp;/g, '&')
+                      .replace(/&lt;/g, '<')
+                      .replace(/&gt;/g, '>')
+                      .replace(/&#39;/g, "'")
+                      .replace(/&nbsp;/g, ' ');
+    
+    // HTML 태그 제거
+    return decoded.replace(/<[^>]*>/g, '');
+  }
+
   const handleBack = () => {
     if (onReset) {
       onReset()
@@ -84,7 +98,26 @@ function Result({ result, onReset }) {
 
           {searchResults && (
             <div className="search-results">
-              <pre>{JSON.stringify(searchResults, null, 2)}</pre>
+              <div className="search-summary">
+                총 <span className="result-count">{searchResults.count}</span>개의 정책이 검색되었습니다
+              </div>
+              <div className="results-grid">
+                {searchResults.data.map((item, index) => (
+                  <div key={index} className="result-card">
+                    <div className="card-header">
+                      <h3 className="card-title">{cleanHtmlString(item.title)}</h3>
+                      <span className={`bias-tag ${item.bias}`}>{item.bias}</span>
+                    </div>
+                    <p className="card-description">{cleanHtmlString(item.descriptions)}</p>
+                    <div className="card-footer">
+                      <span className="office-name">{cleanHtmlString(item.office)}</span>
+                      <a href={item.url} target="_blank" rel="noopener noreferrer" className="more-link">
+                        자세히 보기 →
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </>

@@ -117,10 +117,121 @@
 }
 
 .search-results {
-  margin-top: 20px;
-  padding: 20px;
-  background-color: #f8f9fa;
-  border-radius: 8px;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.search-summary {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.result-count {
+  color: #007bff;
+  font-weight: bold;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 0 1rem;
+}
+
+.result-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 200px;
+  max-height: 220px;
+}
+
+.result-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.8rem;
+}
+
+.card-title {
+  font-size: 1.1rem;
+  margin: 0;
+  color: #333;
+  flex: 1;
+  margin-right: 1rem;
+  line-height: 1.4;
+}
+
+.bias-tag {
+  padding: 0.25rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.bias-tag.진보 {
+  background-color: #e8f4ff;
+  color: #0066cc;
+}
+
+.bias-tag.중도 {
+  background-color: #f0f0f0;
+  color: #666666;
+}
+
+.bias-tag.보수 {
+  background-color: #ffe8e8;
+  color: #cc0000;
+}
+
+.card-description {
+  color: #666;
+  font-size: 0.97rem;
+  line-height: 1.4;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.8rem;
+  border-top: 1px solid #eee;
+  margin-top: 0.8rem;
+}
+
+.office-name {
+  color: #888;
+  font-size: 0.85rem;
+}
+
+.more-link {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.more-link:hover {
+  text-decoration: underline;
 }
 
 .search-container form {
