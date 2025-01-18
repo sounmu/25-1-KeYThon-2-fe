@@ -28,7 +28,20 @@ function Result({ result, onReset }) {
       </div>
       
       <div className="result-content">
-        <p>{result}</p>
+        <div className="result-percentages">
+          <div className="percentage-item">
+            <h3>진보성향</h3>
+            <p>{result.progressive}%</p>
+          </div>
+          <div className="percentage-item">
+            <h3>중도성향</h3>
+            <p>{result.moderate}%</p>
+          </div>
+          <div className="percentage-item">
+            <h3>보수성향</h3>
+            <p>{result.conservative}%</p>
+          </div>
+        </div>
       </div>
 
       <div className="search-container">

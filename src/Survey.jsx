@@ -4,7 +4,7 @@ import Result from './result.jsx'
 
 function Survey({ onComplete }) {
   const [currentQuestion, setCurrentQuestion] = useState(0)
-  const [answers, setAnswers] = useState({})
+  const [answers, setAnswers] = useState(new Array(20).fill(null))
   const [isAnimating, setIsAnimating] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [result, setResult] = useState(null)
@@ -42,13 +42,14 @@ function Survey({ onComplete }) {
     "강하게 동의"
   ]
 
-  const handleAnswer = (option) => {
+  const handleAnswer = (optionIndex) => {
     if (isAnimating) return;
     
-    setAnswers(prev => ({
-      ...prev,
-      [currentQuestion]: option
-    }))
+    setAnswers(prev => {
+      const newAnswers = [...prev]
+      newAnswers[currentQuestion] = optionIndex
+      return newAnswers
+    })
     
     if (currentQuestion < questions.length - 1) {
       setIsAnimating(true)
@@ -115,11 +116,11 @@ function Survey({ onComplete }) {
                   <div key={index} className="option-wrapper">
                     <button
                       className="option-button"
-                      onClick={() => handleAnswer(option)}
+                      onClick={() => handleAnswer(index)}
                       disabled={isAnimating}
                     >
                       <div 
-                        className={`option-circle ${answers[currentQuestion] === option ? 'selected' : ''}`}
+                        className={`option-circle ${answers[currentQuestion] === index ? 'selected' : ''}`}
                       ></div>
                       <span>{option}</span>
                     </button>
@@ -142,7 +143,7 @@ function Survey({ onComplete }) {
               <button 
                 className="nav-button finish-button" 
                 onClick={handleSubmit}
-                disabled={isSubmitting || !answers[currentQuestion]}
+                disabled={isSubmitting || answers[currentQuestion] === null}
               >
                 {isSubmitting ? '제출 중...' : 'Finish'}
               </button>
