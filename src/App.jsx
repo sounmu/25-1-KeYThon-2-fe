@@ -4,6 +4,7 @@ import './App.css'
 function App() {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [answers, setAnswers] = useState({})
+  const [isAnimating, setIsAnimating] = useState(false)
 
   const questions = [
     "나는 새로운 사람들을 만나는 것을 즐긴다.",
@@ -13,22 +14,28 @@ function App() {
   ]
 
   const options = [
-    "StronglyDisagree",
-    "ModeratelyDisagree",
-    "SlightlyDisagree",
-    "SlightlyAgree",
-    "ModeratelyAgree",
-    "StronglyAgree"
+    "Strongly Disagree",
+    "Moderately Disagree",
+    "Slightly Disagree",
+    "Slightly Agree",
+    "Moderately Agree",
+    "Strongly Agree"
   ]
 
   const handleAnswer = (option) => {
+    if (isAnimating) return;
+    
     setAnswers(prev => ({
       ...prev,
       [currentQuestion]: option
     }))
     
     if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1)
+      setIsAnimating(true)
+      setTimeout(() => {
+        setCurrentQuestion(currentQuestion + 1)
+        setIsAnimating(false)
+      }, 300)
     }
   }
 
@@ -50,25 +57,30 @@ function App() {
       {currentQuestion < questions.length ? (
         <>
           <h2 className="question-number">Question {currentQuestion + 1}/{questions.length}</h2>
-          <p className="question-text">{questions[currentQuestion]}</p>
-          
-          <div className="options-container">
-            {options.map((option, index) => (
-              <div key={index} className="option-wrapper">
-                <button
-                  className="option-button"
-                  onClick={() => handleAnswer(option)}
-                >
-                  <div 
-                    className={`option-circle ${answers[currentQuestion] === option ? 'selected' : ''}`}
-                  ></div>
-                  <span>{option}</span>
-                </button>
-                {index < options.length - 1 && <div className="option-line"></div>}
+          <div className="question-container">
+            <div className={`question-slide ${isAnimating ? 'question-slide-exit' : ''}`}>
+              <p className="question-text">{questions[currentQuestion]}</p>
+              
+              <div className="options-container">
+                {options.map((option, index) => (
+                  <div key={index} className="option-wrapper">
+                    <button
+                      className="option-button"
+                      onClick={() => handleAnswer(option)}
+                      disabled={isAnimating}
+                    >
+                      <div 
+                        className={`option-circle ${answers[currentQuestion] === option ? 'selected' : ''}`}
+                      ></div>
+                      <span>{option}</span>
+                    </button>
+                    {index < options.length - 1 && <div className="option-line"></div>}
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
-
+          
           <div className="navigation-buttons">
             <button 
               className="nav-button" 

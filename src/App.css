@@ -67,14 +67,28 @@
   height: 20px;
   border: 2px solid #666;
   border-radius: 50%;
-  transition: all 0.2s;
-  background-color: white;
   margin-top: 20px;
+  transition: all 0.3s ease;
 }
 
 .option-circle.selected {
   background-color: #646cff;
   border-color: #646cff;
+  animation: selectCircle 0.3s ease;
+}
+
+@keyframes selectCircle {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .option-button:hover .option-circle:not(.selected) {
@@ -129,4 +143,39 @@
 .survey-complete {
   text-align: center;
   margin-top: 2rem;
+}
+
+.question-container {
+  position: relative;
+  width: 100%;
+}
+
+.question-slide {
+  animation: slideIn 0.4s ease;
+}
+
+.question-slide-exit {
+  animation: slideOut 0.4s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
 }
