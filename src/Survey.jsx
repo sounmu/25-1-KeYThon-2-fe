@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './Survey.css'
 import Result from './result.jsx'
 
-function Survey() {
+function Survey({ onComplete }) {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [answers, setAnswers] = useState({})
   const [isAnimating, setIsAnimating] = useState(false)
@@ -13,6 +13,23 @@ function Survey() {
     "나는 새로운 사람들을 만나는 것을 즐긴다.",
     "나는 계획을 세우는 것을 좋아한다.",
     "나는 다른 사람들의 감정을 잘 이해한다.",
+    "4번 질문",
+    "5번 질문",
+    "나는 혼자만의 시간을 중요하게 생각한다.",
+    "나는 새로운 아이디어를 생각해내는 것을 좋아한다.", 
+    "나는 다른 사람들과 함께 일하는 것을 선호한다.",
+    "나는 세부사항에 주의를 기울인다.",
+    "나는 스트레스 상황에서도 차분함을 유지한다.",
+    "나는 예술적인 것들에 관심이 많다.",
+    "나는 리더십을 발휘하는 것을 좋아한다.",
+    "나는 규칙과 질서를 중요하게 여긴다.",
+    "나는 다른 사람들을 돕는 것을 즐긴다.",
+    "나는 새로운 경험을 추구한다.",
+    "나는 논리적인 사고를 하는 것을 좋아한다.",
+    "나는 감정적인 결정을 내리는 편이다.",
+    "나는 체계적으로 일을 처리하는 것을 선호한다.",
+    "나는 창의적인 해결책을 찾는 것을 좋아한다.",
+    "나는 다른 사람들의 의견을 경청한다."
     // ... 나머지 17개의 질문을 추가하세요
   ]
 
@@ -57,23 +74,23 @@ function Survey() {
   const handleSubmit = async () => {
     setIsSubmitting(true)
     try {
-      const response = await fetch('http://localhost:8080/api/survey', {
+      const response = await fetch('http://localhost:8000/api/survey', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ answers }),
       })
-      
       if (!response.ok) {
         throw new Error('Failed to submit survey')
       }
 
       const data = await response.json()
       setResult(data.result)
+      onComplete(data.result)
     } catch (error) {
       console.error('Error submitting survey:', error)
-      alert('설문 제출 중 오류가 발생했습니다. 다시 시도해주세요.')
+      alert('설문 제출 중 오류가 발생했습니다. 다시 시도해주세요. error: ' + error)
     } finally {
       setIsSubmitting(false)
     }
