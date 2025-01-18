@@ -71,7 +71,7 @@ function Result({ result, onReset }) {
         <button className="back-button" onClick={handleBack}>
           ← 설문 새로하기
         </button>
-        <h2>당신의 성격 유형 분석 결과</h2>
+        <h2>{hasSearched ? "분석 결과" : "당신의 성향 분석 결과"}</h2>
         {hasSearched && (
           <button className="return-button" onClick={handleReturn}>
             결과보기 →
@@ -99,7 +99,7 @@ function Result({ result, onReset }) {
           {searchResults && (
             <div className="search-results">
               <div className="search-summary">
-                총 <span className="result-count">{searchResults.count}</span>개의 정책이 검색되었습니다
+                총 <span className="result-count">{searchResults.count}</span>개의 기사가 검색되었습니다
               </div>
               <div className="results-grid">
                 {searchResults.data.map((item, index) => (
