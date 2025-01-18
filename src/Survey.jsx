@@ -75,7 +75,7 @@ function Survey({ onComplete }) {
   const handleSubmit = async () => {
     setIsSubmitting(true)
     try {
-      const response = await fetch('http://localhost:8000/api/survey', {
+      const response = await fetch('http://52.79.237.145:8000/api/survey', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
