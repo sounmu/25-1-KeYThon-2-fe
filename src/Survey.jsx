@@ -142,7 +142,7 @@ function Survey({ onComplete }) {
               <button 
                 className="nav-button finish-button" 
                 onClick={handleSubmit}
-                disabled={isSubmitting || answers[currentQuestion] === null}
+                disabled={isSubmitting || answers.includes(null)}
               >
                 {isSubmitting ? '제출 중...' : 'Finish'}
               </button>

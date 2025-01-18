@@ -35,6 +35,12 @@ function Result({ result, onReset }) {
 
   const handleSearch = async (e) => {
     e.preventDefault()
+    
+    if (!searchTerm.trim()) {
+      alert('검색어를 입력해주세요')
+      return
+    }
+
     setHasSearched(true)
 
     const searchData = {
@@ -85,7 +91,7 @@ function Result({ result, onReset }) {
             <form onSubmit={handleSearch}>
               <input
                 type="text"
-                placeholder="관심있는 주제를 검색해보세요"
+                placeholder="성향을 반영한 추천 기사를 검색해보세요"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="search-input"
@@ -144,7 +150,7 @@ function Result({ result, onReset }) {
             <form onSubmit={handleSearch}>
               <input
                 type="text"
-                placeholder="관심있는 주제를 검색해보세요"
+                placeholder="성향을 반영한 추천 기사를 검색해보세요"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="search-input"
