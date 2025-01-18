@@ -3,12 +3,12 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
 .text-h3 {
   font-size: 1.75rem;
   font-weight: 700;
-  font-family: 'Noto Sans KR', sans-serif;
 }
 
 .survey-container {

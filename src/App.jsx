@@ -14,12 +14,12 @@ function App() {
   ]
 
   const options = [
-    "Strongly Disagree",
-    "Moderately Disagree",
-    "Slightly Disagree",
-    "Slightly Agree",
-    "Moderately Agree",
-    "Strongly Agree"
+    "강하게 비동의",
+    "다소 비동의",
+    "약간 비동의",
+    "약간 동의",
+    "다소 동의",
+    "강하게 동의"
   ]
 
   const handleAnswer = (option) => {
