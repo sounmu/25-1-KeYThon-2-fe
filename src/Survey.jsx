@@ -102,7 +102,7 @@ function Survey({ onComplete }) {
 
   return (
     <div className="survey-container">
-      <p className="text-h3">One Piece (가명)</p>
+      <p className="text-h3">One Piece of News</p>
       {currentQuestion < questions.length ? (
         <>
           <h2 className="question-number">Question {currentQuestion + 1}/{questions.length}</h2>
